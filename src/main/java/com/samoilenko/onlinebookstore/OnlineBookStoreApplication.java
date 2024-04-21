@@ -1,8 +1,8 @@
 package com.samoilenko.onlinebookstore;
 
-import java.math.BigDecimal;
 import com.samoilenko.onlinebookstore.model.Book;
 import com.samoilenko.onlinebookstore.service.BookService;
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +17,7 @@ public class OnlineBookStoreApplication {
     public static void main(String[] args) {
         SpringApplication.run(OnlineBookStoreApplication.class, args);
     }
+
     @Bean
     public CommandLineRunner commandLineRunner() {
         return new CommandLineRunner() {
