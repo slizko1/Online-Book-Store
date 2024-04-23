@@ -1,5 +1,6 @@
 package com.samoilenko.onlinebookstore.repository.impl;
 
+import com.samoilenko.onlinebookstore.exception.EntityNotFoundException;
 import com.samoilenko.onlinebookstore.model.Book;
 import com.samoilenko.onlinebookstore.repository.BookRepository;
 import java.util.List;
@@ -45,7 +46,7 @@ public class BookRepositoryImpl implements BookRepository {
                     .createQuery("FROM Book", Book.class)
                     .getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't get all books", e);
+            throw new EntityNotFoundException("Can't get all books", e);
         }
     }
 
@@ -55,7 +56,7 @@ public class BookRepositoryImpl implements BookRepository {
             Book book = session.find(Book.class, id);
             return Optional.ofNullable(book);
         } catch (Exception e) {
-            throw new RuntimeException("Can't get book by id " + id, e);
+            throw new EntityNotFoundException("Can't get book by id " + id, e);
         }
     }
 }
