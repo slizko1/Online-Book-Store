@@ -1,21 +1,21 @@
 package com.samoilenko.onlinebookstore.repository.impl;
 
+import com.samoilenko.onlinebookstore.exception.EntityNotFoundException;
 import com.samoilenko.onlinebookstore.model.Book;
 import com.samoilenko.onlinebookstore.repository.BookRepository;
 import java.util.List;
+import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+@RequiredArgsConstructor
 @Repository
 public class BookRepositoryImpl implements BookRepository {
 
     private final SessionFactory sessionFactory;
-
-    public BookRepositoryImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     @Override
     public Book save(Book book) {
@@ -46,7 +46,17 @@ public class BookRepositoryImpl implements BookRepository {
                     .createQuery("FROM Book", Book.class)
                     .getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Can't get all books", e);
+            throw new EntityNotFoundException("Can't get all books", e);
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            Book book = session.find(Book.class, id);
+            return Optional.ofNullable(book);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Can't get book by id " + id, e);
         }
     }
 }

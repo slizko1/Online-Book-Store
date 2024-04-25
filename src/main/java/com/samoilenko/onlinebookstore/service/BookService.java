@@ -1,10 +1,13 @@
 package com.samoilenko.onlinebookstore.service;
 
-import com.samoilenko.onlinebookstore.model.Book;
+import com.samoilenko.onlinebookstore.dto.BookDto;
+import com.samoilenko.onlinebookstore.dto.CreateBookRequestDto;
 import java.util.List;
 
 public interface BookService {
-    Book save(Book book);
+    BookDto createBook(CreateBookRequestDto requestDto);
 
-    List<Book> findAll();
+    List<BookDto> findAll();
+
+    BookDto findBookById(Long id);
 }
