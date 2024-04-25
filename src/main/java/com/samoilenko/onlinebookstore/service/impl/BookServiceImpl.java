@@ -33,7 +33,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDto findBookById(Long id) {
         return bookMapper.toDto(bookRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Can't get book by id" + id)
+                () -> new EntityNotFoundException("Can't get book by id " + id)
         ));
     }
 
