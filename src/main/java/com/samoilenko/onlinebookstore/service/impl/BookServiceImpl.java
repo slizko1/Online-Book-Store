@@ -1,7 +1,7 @@
 package com.samoilenko.onlinebookstore.service.impl;
 
 import com.samoilenko.onlinebookstore.dto.BookDto;
-import com.samoilenko.onlinebookstore.dto.CreateBookRequestDto;
+import com.samoilenko.onlinebookstore.dto.BookRequestDto;
 import com.samoilenko.onlinebookstore.exception.EntityNotFoundException;
 import com.samoilenko.onlinebookstore.mapper.BookMapper;
 import com.samoilenko.onlinebookstore.model.Book;
@@ -18,7 +18,7 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookDto createBook(CreateBookRequestDto requestDto) {
+    public BookDto createBook(BookRequestDto requestDto) {
         Book savedBook = bookMapper.toModel(requestDto);
         return bookMapper.toDto(bookRepository.save(savedBook));
     }
@@ -35,6 +35,23 @@ public class BookServiceImpl implements BookService {
         return bookMapper.toDto(bookRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Can't get book by id " + id)
         ));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new EntityNotFoundException("Book with id " + id + " not found");
+        }
+        bookRepository.deleteById(id);
+    }
+
+    public BookDto update(Long id, BookRequestDto bookRequestDto) {
+        if (!bookRepository.existsById(id)) {
+            throw new EntityNotFoundException("Book with id " + id + " not found");
+        }
+        Book updatedBook = bookMapper.toModel(bookRequestDto);
+        updatedBook.setId(id);
+        return bookMapper.toDto(bookRepository.save(updatedBook));
     }
 
 }
