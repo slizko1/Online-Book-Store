@@ -17,6 +17,7 @@ public class BookRequestDto {
     @NotBlank
     private String author;
     @ISBN
+    @NotNull
     private String isbn;
     private String description;
     private String coverImage;
