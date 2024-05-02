@@ -25,14 +25,26 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             HttpStatusCode status,
             WebRequest request
     ) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST);
         List<String> errors = ex.getBindingResult().getAllErrors().stream()
                 .map(this::getErrorMessage)
                 .toList();
+        return getResponseEntity(status, errors);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<Object> handleEntityNotFoundException(
+            EntityNotFoundException ex, WebRequest request
+    ) {
+        String bodyOfResponse = "Entity not found: " + ex.getMessage();
+        return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
+    }
+
+    private ResponseEntity<Object> getResponseEntity(HttpStatusCode status, Object errors) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", status);
         body.put("errors", errors);
-        return new ResponseEntity<>(body, headers,status);
+        return new ResponseEntity<>(body, status);
     }
 
     private String getErrorMessage(ObjectError e) {
@@ -44,25 +56,4 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return e.getDefaultMessage();
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    protected ResponseEntity<Object> handleEntityNotFoundException(
-            EntityNotFoundException ex, WebRequest request
-    ) {
-        String bodyOfResponse = "Entity not found: " + ex.getMessage();
-        return handleExceptionInternal(ex,
-                bodyOfResponse,
-                new HttpHeaders(),
-                HttpStatus.NOT_FOUND,
-                request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(
-            Exception ex,
-            Object body,
-            HttpHeaders headers,
-            HttpStatusCode statusCode,
-            WebRequest request) {
-        return super.handleExceptionInternal(ex, body, headers, statusCode, request);
-    }
 }
