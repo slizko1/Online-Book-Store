@@ -9,6 +9,7 @@ import com.samoilenko.onlinebookstore.repository.BookRepository;
 import com.samoilenko.onlinebookstore.service.BookService;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,8 +25,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> findAll() {
-        return bookRepository.findAll().stream()
+    public List<BookDto> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
@@ -39,19 +40,21 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void deleteById(Long id) {
-        if (!bookRepository.existsById(id)) {
-            throw new EntityNotFoundException("Book with id " + id + " not found");
-        }
+        validateId(id);
         bookRepository.deleteById(id);
     }
 
     public BookDto update(Long id, BookRequestDto bookRequestDto) {
-        if (!bookRepository.existsById(id)) {
-            throw new EntityNotFoundException("Book with id " + id + " not found");
-        }
+        validateId(id);
         Book updatedBook = bookMapper.toModel(bookRequestDto);
         updatedBook.setId(id);
         return bookMapper.toDto(bookRepository.save(updatedBook));
+    }
+
+    private void validateId(Long id) {
+        if (!bookRepository.existsById(id)) {
+            throw new EntityNotFoundException("Book with id " + id + " not found");
+        }
     }
 
 }
