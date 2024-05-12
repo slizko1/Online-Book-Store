@@ -4,6 +4,7 @@ import com.samoilenko.onlinebookstore.dto.UserRegistrationRequestDto;
 import com.samoilenko.onlinebookstore.dto.UserResponseDto;
 import com.samoilenko.onlinebookstore.exception.RegistrationException;
 import com.samoilenko.onlinebookstore.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ public class AuthentificationController {
     private final UserService userService;
 
     @PostMapping("/registration")
-    public UserResponseDto register(@RequestBody UserRegistrationRequestDto request)
+    public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto request)
             throws RegistrationException {
         UserResponseDto register = userService.register(request);
         return register;

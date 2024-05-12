@@ -43,8 +43,8 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     protected ResponseEntity<Object> handleRegistrationException(
             RegistrationException ex, WebRequest request
     ) {
-        String bodyOfResponse = "Can't register user" + ex.getMessage();
-        return getResponseEntity(HttpStatus.CONFLICT, bodyOfResponse);
+        String responseMessage = "Can't register user: " + ex.getMessage();
+        return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
     }
 
     private ResponseEntity<Object> getResponseEntity(HttpStatusCode status, Object errors) {
