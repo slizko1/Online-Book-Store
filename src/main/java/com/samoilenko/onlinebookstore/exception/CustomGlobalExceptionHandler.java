@@ -39,12 +39,28 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    protected ResponseEntity<Object> handleUserNotFoundException(
+            UserNotFoundException ex, WebRequest request
+    ) {
+        String bodyOfResponse = "User not found: " + ex.getMessage();
+        return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
+    }
+
     @ExceptionHandler(RegistrationException.class)
     protected ResponseEntity<Object> handleRegistrationException(
             RegistrationException ex, WebRequest request
     ) {
         String responseMessage = "Can't register user: " + ex.getMessage();
         return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
+    }
+
+    @ExceptionHandler(FieldMatchValidationException.class)
+    protected ResponseEntity<Object> handleFieldValidationException(
+            RegistrationException ex, WebRequest request
+    ) {
+        String responseMessage = ex.getMessage();
+        return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, responseMessage);
     }
 
     private ResponseEntity<Object> getResponseEntity(HttpStatusCode status, Object errors) {
@@ -63,5 +79,4 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         }
         return e.getDefaultMessage();
     }
-
 }
