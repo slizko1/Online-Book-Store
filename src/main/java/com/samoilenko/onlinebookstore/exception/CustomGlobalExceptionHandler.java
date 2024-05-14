@@ -55,7 +55,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
     }
 
-
     @ExceptionHandler(FieldMatchValidationException.class)
     protected ResponseEntity<Object> handleFieldValidationException(
             RegistrationException ex, WebRequest request
@@ -63,7 +62,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         String responseMessage = ex.getMessage();
         return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, responseMessage);
     }
-
 
     private ResponseEntity<Object> getResponseEntity(HttpStatusCode status, Object errors) {
         Map<String, Object> body = new LinkedHashMap<>();
@@ -81,5 +79,4 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         }
         return e.getDefaultMessage();
     }
-
 }
