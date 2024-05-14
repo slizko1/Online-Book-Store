@@ -39,14 +39,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    protected ResponseEntity<Object> handleUserNotFoundException(
-            UserNotFoundException ex, WebRequest request
-    ) {
-        String bodyOfResponse = "User not found: " + ex.getMessage();
-        return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
-    }
-
     @ExceptionHandler(RegistrationException.class)
     protected ResponseEntity<Object> handleRegistrationException(
             RegistrationException ex, WebRequest request
