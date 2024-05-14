@@ -1,10 +1,8 @@
 package com.samoilenko.onlinebookstore.validation.constraints;
 
-import com.samoilenko.onlinebookstore.exception.FieldMatchValidationException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.lang.reflect.Field;
-import java.util.Objects;
 
 public class FieldMatchValidator implements
         ConstraintValidator<FieldMatch, Object> {
@@ -29,9 +27,10 @@ public class FieldMatchValidator implements
             Object firstValue = firstField.get(fieldsSource);
             Object secondValue = secondField.get(fieldsSource);
 
-            return Objects.equals(firstField, secondField);
+            return firstValue == null && secondValue == null
+                    || firstValue != null && firstValue.equals(secondValue);
         } catch (Exception e) {
-            throw new FieldMatchValidationException("Can't complete validation");
+            return false;
         }
 
     }
