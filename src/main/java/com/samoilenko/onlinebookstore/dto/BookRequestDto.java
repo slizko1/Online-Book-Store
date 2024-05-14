@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import lombok.Data;
-import org.hibernate.validator.constraints.ISBN;
 
 @Data
 public class BookRequestDto {
@@ -16,7 +15,6 @@ public class BookRequestDto {
     private BigDecimal price;
     @NotBlank
     private String author;
-    @ISBN
     @NotNull
     private String isbn;
     private String description;
