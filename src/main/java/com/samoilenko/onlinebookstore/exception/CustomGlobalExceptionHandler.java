@@ -39,6 +39,14 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
+    @ExceptionHandler(RegistrationException.class)
+    protected ResponseEntity<Object> handleRegistrationException(
+            RegistrationException ex, WebRequest request
+    ) {
+        String responseMessage = "Can't register user: " + ex.getMessage();
+        return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
+    }
+
     private ResponseEntity<Object> getResponseEntity(HttpStatusCode status, Object errors) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());

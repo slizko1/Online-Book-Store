@@ -8,12 +8,12 @@ import com.samoilenko.onlinebookstore.model.Book;
 import com.samoilenko.onlinebookstore.repository.BookRepository;
 import com.samoilenko.onlinebookstore.service.BookService;
 import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
