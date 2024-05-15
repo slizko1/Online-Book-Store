@@ -1,6 +1,5 @@
 package com.samoilenko.onlinebookstore.controller;
 
-import com.samoilenko.onlinebookstore.dto.UserLoginRequestDto;
 import com.samoilenko.onlinebookstore.dto.UserRegistrationRequestDto;
 import com.samoilenko.onlinebookstore.dto.UserResponseDto;
 import com.samoilenko.onlinebookstore.exception.RegistrationException;
@@ -26,11 +25,5 @@ public class AuthenticationController {
     public UserResponseDto register(@RequestBody @Valid UserRegistrationRequestDto request)
             throws RegistrationException {
         return userService.register(request);
-    }
-
-    @Operation(summary = "User login", description = "Endpoint for login existing users")
-    @PostMapping("/login")
-    public boolean login(@RequestBody UserLoginRequestDto loginRequestDto) {
-        return true;
     }
 }

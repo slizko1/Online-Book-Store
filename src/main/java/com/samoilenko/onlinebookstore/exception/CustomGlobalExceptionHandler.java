@@ -55,11 +55,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
     }
 
-    @ExceptionHandler(FieldMatchValidationException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<Object> handleFieldValidationException(
-            RegistrationException ex, WebRequest request
+            IllegalArgumentException ex, WebRequest request
     ) {
-        String responseMessage = ex.getMessage();
+        String responseMessage = "Can't complete validation:" + ex.getMessage();
         return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, responseMessage);
     }
 

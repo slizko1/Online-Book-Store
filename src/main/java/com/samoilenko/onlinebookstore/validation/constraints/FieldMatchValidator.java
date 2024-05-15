@@ -1,6 +1,5 @@
 package com.samoilenko.onlinebookstore.validation.constraints;
 
-import com.samoilenko.onlinebookstore.exception.FieldMatchValidationException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.lang.reflect.Field;
@@ -30,7 +29,9 @@ public class FieldMatchValidator implements
             Object secondValue = secondField.get(fieldsSource);
             return Objects.equals(firstValue, secondValue);
         } catch (Exception e) {
-            throw new FieldMatchValidationException("Can't complete validation");
+            throw new IllegalArgumentException("Invalid field names were passed to the "
+                    + "@FieldMatch params, validator was unable to get them or access to them, "
+                    + "field names received: " + first + " and " + second);
 
         }
 
