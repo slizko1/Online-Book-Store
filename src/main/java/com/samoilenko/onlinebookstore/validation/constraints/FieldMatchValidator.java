@@ -3,6 +3,7 @@ package com.samoilenko.onlinebookstore.validation.constraints;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 public class FieldMatchValidator implements
         ConstraintValidator<FieldMatch, Object> {
@@ -26,11 +27,12 @@ public class FieldMatchValidator implements
 
             Object firstValue = firstField.get(fieldsSource);
             Object secondValue = secondField.get(fieldsSource);
-
-            return firstValue == null && secondValue == null
-                    || firstValue != null && firstValue.equals(secondValue);
+            return Objects.equals(firstValue, secondValue);
         } catch (Exception e) {
-            return false;
+            throw new IllegalArgumentException("Invalid field names were passed to the "
+                    + "@FieldMatch params, validator was unable to get them or access to them, "
+                    + "field names received: " + first + " and " + second);
+
         }
 
     }
