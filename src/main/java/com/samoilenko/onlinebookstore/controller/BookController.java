@@ -1,7 +1,7 @@
 package com.samoilenko.onlinebookstore.controller;
 
-import com.samoilenko.onlinebookstore.dto.BookDto;
-import com.samoilenko.onlinebookstore.dto.BookRequestDto;
+import com.samoilenko.onlinebookstore.dto.bookdtos.BookDto;
+import com.samoilenko.onlinebookstore.dto.bookdtos.BookRequestDto;
 import com.samoilenko.onlinebookstore.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +39,7 @@ public class BookController {
         return bookService.findAll(pageable);
     }
 
-    @Operation(summary = "Get book by ID", description = "Returns a single book by its unique ID.")
+    @Operation(summary = "Get book by ID", description = "Returns a single book by its  ID.")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     public BookDto getBookById(@PathVariable Long id) {

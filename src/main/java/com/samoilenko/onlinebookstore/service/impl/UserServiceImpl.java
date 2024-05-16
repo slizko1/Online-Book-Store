@@ -1,7 +1,7 @@
 package com.samoilenko.onlinebookstore.service.impl;
 
-import com.samoilenko.onlinebookstore.dto.UserRegistrationRequestDto;
-import com.samoilenko.onlinebookstore.dto.UserResponseDto;
+import com.samoilenko.onlinebookstore.dto.usertdos.UserRegistrationRequestDto;
+import com.samoilenko.onlinebookstore.dto.usertdos.UserResponseDto;
 import com.samoilenko.onlinebookstore.exception.RegistrationException;
 import com.samoilenko.onlinebookstore.mapper.UserMapper;
 import com.samoilenko.onlinebookstore.model.Role;

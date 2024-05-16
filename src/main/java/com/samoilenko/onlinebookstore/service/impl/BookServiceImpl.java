@@ -1,7 +1,8 @@
 package com.samoilenko.onlinebookstore.service.impl;
 
-import com.samoilenko.onlinebookstore.dto.BookDto;
-import com.samoilenko.onlinebookstore.dto.BookRequestDto;
+import com.samoilenko.onlinebookstore.dto.bookdtos.BookDto;
+import com.samoilenko.onlinebookstore.dto.bookdtos.BookDtoWithoutCategoryIds;
+import com.samoilenko.onlinebookstore.dto.bookdtos.BookRequestDto;
 import com.samoilenko.onlinebookstore.exception.EntityNotFoundException;
 import com.samoilenko.onlinebookstore.mapper.BookMapper;
 import com.samoilenko.onlinebookstore.model.Book;
@@ -20,7 +21,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto createBook(BookRequestDto requestDto) {
-        Book savedBook = bookMapper.toModel(requestDto);
+        Book savedBook = bookMapper.toEntity(requestDto);
         return bookMapper.toDto(bookRepository.save(savedBook));
     }
 
@@ -46,9 +47,16 @@ public class BookServiceImpl implements BookService {
 
     public BookDto update(Long id, BookRequestDto bookRequestDto) {
         validateId(id);
-        Book updatedBook = bookMapper.toModel(bookRequestDto);
+        Book updatedBook = bookMapper.toEntity(bookRequestDto);
         updatedBook.setId(id);
         return bookMapper.toDto(bookRepository.save(updatedBook));
+    }
+
+    @Override
+    public List<BookDtoWithoutCategoryIds> findBooksByCategoryId(Pageable pageable, Long id) {
+        return bookRepository.findAllByCategoryId(pageable, id).stream()
+                .map(bookMapper::toDtoWithoutCategories)
+                .toList();
     }
 
     private void validateId(Long id) {

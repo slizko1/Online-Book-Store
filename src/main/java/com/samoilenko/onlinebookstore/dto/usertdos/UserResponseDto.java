@@ -1,4 +1,4 @@
-package com.samoilenko.onlinebookstore.dto;
+package com.samoilenko.onlinebookstore.dto.usertdos;
 
 import lombok.Data;
 
