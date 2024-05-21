@@ -5,8 +5,6 @@ import com.samoilenko.onlinebookstore.dto.bookdtos.BookDto;
 import com.samoilenko.onlinebookstore.dto.bookdtos.BookDtoWithoutCategoryIds;
 import com.samoilenko.onlinebookstore.dto.bookdtos.BookRequestDto;
 import com.samoilenko.onlinebookstore.model.Book;
-import com.samoilenko.onlinebookstore.model.Category;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -30,14 +28,6 @@ public interface BookMapper {
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "categories", ignore = true)
     Book toEntity(BookRequestDto requestDto);
-
-//    @AfterMapping
-//    default void mapCategories(BookRequestDto bookDto, @MappingTarget Book book) {
-//        Set<Category> categories = bookDto.getCategoryIds().stream()
-//                .map(id -> entityManager.getReference(Category.class, id))
-//                .collect(Collectors.toSet());
-//        book.setCategories(categories);
-//    }
 
     BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
 }
