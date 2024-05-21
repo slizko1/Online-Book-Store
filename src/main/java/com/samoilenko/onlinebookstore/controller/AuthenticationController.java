@@ -1,11 +1,8 @@
 package com.samoilenko.onlinebookstore.controller;
 
-import com.samoilenko.onlinebookstore.dto.userdtos.UserLoginRequestDto;
-import com.samoilenko.onlinebookstore.dto.userdtos.UserLoginResponseDto;
-import com.samoilenko.onlinebookstore.dto.userdtos.UserRegistrationRequestDto;
-import com.samoilenko.onlinebookstore.dto.userdtos.UserResponseDto;
+import com.samoilenko.onlinebookstore.dto.UserRegistrationRequestDto;
+import com.samoilenko.onlinebookstore.dto.UserResponseDto;
 import com.samoilenko.onlinebookstore.exception.RegistrationException;
-import com.samoilenko.onlinebookstore.security.AuthenticatetionService;
 import com.samoilenko.onlinebookstore.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
