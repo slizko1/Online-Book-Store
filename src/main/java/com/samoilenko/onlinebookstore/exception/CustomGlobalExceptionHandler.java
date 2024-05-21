@@ -1,5 +1,6 @@
 package com.samoilenko.onlinebookstore.exception;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             EntityNotFoundException ex, WebRequest request
     ) {
         String bodyOfResponse = "Entity not found: " + ex.getMessage();
-        log.error("Something went wrong", ex);
+        log.error("Entity not found", ex);
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
@@ -47,7 +48,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             UserNotFoundException ex, WebRequest request
     ) {
         String bodyOfResponse = "User not found: " + ex.getMessage();
-        log.error("Something went wrong", ex);
+        log.error("User not found:", ex);
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
@@ -56,7 +57,16 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             RegistrationException ex, WebRequest request
     ) {
         String responseMessage = "Can't register user: " + ex.getMessage();
-        log.error("Something went wrong", ex);
+        log.error("Can't register user", ex);
+        return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    protected ResponseEntity<Object> handleSQLIntegrityConstraintViolationException(
+            SQLIntegrityConstraintViolationException ex, WebRequest request
+    ) {
+        String responseMessage = "Duplicated data: " + ex.getMessage();
+        log.error("Duplicated data", ex);
         return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
     }
 
@@ -65,7 +75,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             IllegalArgumentException ex, WebRequest request
     ) {
         String responseMessage = "Can't complete validation:" + ex.getMessage();
-        log.error("Something went wrong", ex);
+        log.error("Can't complete validation", ex);
         return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, responseMessage);
     }
 

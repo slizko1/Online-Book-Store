@@ -14,5 +14,4 @@ public interface CategoryMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "deleted", ignore = true)
     Category toEntity(CategoryDto categoryDto);
-
 }

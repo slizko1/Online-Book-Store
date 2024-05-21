@@ -6,14 +6,10 @@ import com.samoilenko.onlinebookstore.dto.bookdtos.BookRequestDto;
 import com.samoilenko.onlinebookstore.exception.EntityNotFoundException;
 import com.samoilenko.onlinebookstore.mapper.BookMapper;
 import com.samoilenko.onlinebookstore.model.Book;
-import com.samoilenko.onlinebookstore.model.Category;
 import com.samoilenko.onlinebookstore.repository.BookRepository;
 import com.samoilenko.onlinebookstore.service.BookService;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,13 +22,8 @@ public class BookServiceImpl implements BookService {
     private final EntityManager entityManager;
 
     @Override
-    @Transactional
     public BookDto createBook(BookRequestDto requestDto) {
         Book savedBook = bookMapper.toEntity(requestDto);
-        Set<Category> categories = requestDto.getCategoryIds().stream()
-                .map(id -> entityManager.getReference(Category.class, id))
-                .collect(Collectors.toSet());
-        savedBook.setCategories(categories);
         return bookMapper.toDto(bookRepository.save(savedBook));
     }
 
