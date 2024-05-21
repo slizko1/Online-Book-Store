@@ -62,7 +62,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    protected ResponseEntity<Object> handleSQLIntegrityConstraintViolationException(
+    protected ResponseEntity<Object> handleSqlIntegrityConstraintViolationException(
             SQLIntegrityConstraintViolationException ex, WebRequest request
     ) {
         String responseMessage = "Duplicated data: " + ex.getMessage();
