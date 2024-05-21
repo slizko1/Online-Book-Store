@@ -1,4 +1,4 @@
-package com.samoilenko.onlinebookstore.dto.usertdos;
+package com.samoilenko.onlinebookstore.dto.userdtos;
 
 public record UserLoginResponseDto(String token) {
 }

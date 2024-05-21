@@ -1,15 +1,13 @@
 package com.samoilenko.onlinebookstore.dto.bookdtos;
 
 import java.math.BigDecimal;
-import lombok.Data;
 
-@Data
-public class BookDtoWithoutCategoryIds {
-    private Long id;
-    private String title;
-    private BigDecimal price;
-    private String author;
-    private String isbn;
-    private String description;
-    private String coverImage;
-}
+public record BookDtoWithoutCategoryIds(
+        Long id,
+        String title,
+        BigDecimal price,
+        String author,
+        String isbn,
+        String description,
+        String coverImage
+) {}

@@ -1,7 +1,7 @@
 package com.samoilenko.onlinebookstore.security;
 
-import com.samoilenko.onlinebookstore.dto.usertdos.UserLoginRequestDto;
-import com.samoilenko.onlinebookstore.dto.usertdos.UserLoginResponseDto;
+import com.samoilenko.onlinebookstore.dto.userdtos.UserLoginRequestDto;
+import com.samoilenko.onlinebookstore.dto.userdtos.UserLoginResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
