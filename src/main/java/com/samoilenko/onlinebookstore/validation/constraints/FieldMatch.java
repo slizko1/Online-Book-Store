@@ -15,9 +15,12 @@ import java.lang.annotation.Target;
 @Documented
 public @interface FieldMatch {
     String message() default "Fields do not match";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 
     String first();
+
     String second();
 }

@@ -1,9 +1,11 @@
 package com.samoilenko.onlinebookstore.exception;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+@Log4j2
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
@@ -36,6 +39,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             EntityNotFoundException ex, WebRequest request
     ) {
         String bodyOfResponse = "Entity not found: " + ex.getMessage();
+        log.error("Entity not found", ex);
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
@@ -44,6 +48,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             UserNotFoundException ex, WebRequest request
     ) {
         String bodyOfResponse = "User not found: " + ex.getMessage();
+        log.error("User not found:", ex);
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
@@ -52,6 +57,16 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             RegistrationException ex, WebRequest request
     ) {
         String responseMessage = "Can't register user: " + ex.getMessage();
+        log.error("Can't register user", ex);
+        return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    protected ResponseEntity<Object> handleSqlIntegrityConstraintViolationException(
+            SQLIntegrityConstraintViolationException ex, WebRequest request
+    ) {
+        String responseMessage = "Duplicated data: " + ex.getMessage();
+        log.error("Duplicated data", ex);
         return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
     }
 
@@ -60,6 +75,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             IllegalArgumentException ex, WebRequest request
     ) {
         String responseMessage = "Can't complete validation:" + ex.getMessage();
+        log.error("Can't complete validation", ex);
         return getResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, responseMessage);
     }
 

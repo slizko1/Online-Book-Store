@@ -1,4 +1,4 @@
-package com.samoilenko.onlinebookstore.dto;
+package com.samoilenko.onlinebookstore.dto.userdtos;
 
 import com.samoilenko.onlinebookstore.validation.constraints.FieldMatch;
 import jakarta.validation.constraints.Email;

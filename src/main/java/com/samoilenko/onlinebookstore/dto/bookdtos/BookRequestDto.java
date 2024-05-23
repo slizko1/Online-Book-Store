@@ -1,9 +1,10 @@
-package com.samoilenko.onlinebookstore.dto;
+package com.samoilenko.onlinebookstore.dto.bookdtos;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Set;
 import lombok.Data;
 
 @Data
@@ -19,4 +20,6 @@ public class BookRequestDto {
     private String isbn;
     private String description;
     private String coverImage;
+    @NotNull
+    private Set<Long> categoryIds;
 }
