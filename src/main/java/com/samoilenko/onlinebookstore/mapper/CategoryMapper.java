@@ -1,7 +1,7 @@
 package com.samoilenko.onlinebookstore.mapper;
 
 import com.samoilenko.onlinebookstore.config.MapperConfig;
-import com.samoilenko.onlinebookstore.dto.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
 import com.samoilenko.onlinebookstore.model.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

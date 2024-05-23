@@ -1,6 +1,6 @@
 package com.samoilenko.onlinebookstore.service.impl;
 
-import com.samoilenko.onlinebookstore.dto.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
 import com.samoilenko.onlinebookstore.exception.EntityNotFoundException;
 import com.samoilenko.onlinebookstore.mapper.CategoryMapper;
 import com.samoilenko.onlinebookstore.model.Category;

@@ -1,7 +1,7 @@
 package com.samoilenko.onlinebookstore.controller;
 
-import com.samoilenko.onlinebookstore.dto.CategoryDto;
 import com.samoilenko.onlinebookstore.dto.bookdtos.BookDtoWithoutCategoryIds;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
 import com.samoilenko.onlinebookstore.service.BookService;
 import com.samoilenko.onlinebookstore.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;

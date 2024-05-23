@@ -1,6 +1,6 @@
 package com.samoilenko.onlinebookstore.service;
 
-import com.samoilenko.onlinebookstore.dto.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 

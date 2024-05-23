@@ -12,6 +12,7 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 @Mapper(config = MapperConfig.class)
 public interface BookMapper {
@@ -22,7 +23,7 @@ public interface BookMapper {
     @AfterMapping
     default void setCategoryIds(@MappingTarget BookDto bookDto, Book book) {
         bookDto.setCategories(book.getCategories().stream()
-                .map(category -> category.getId())
+                .map(Category::getId)
                 .collect(Collectors.toSet()));
     }
 
@@ -44,4 +45,12 @@ public interface BookMapper {
     }
 
     BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
+
+    @Named("bookFromId")
+    default Book bookFromId(Long id) {
+        Book book = new Book();
+        book.setId(id);
+        return book;
+    }
+
 }

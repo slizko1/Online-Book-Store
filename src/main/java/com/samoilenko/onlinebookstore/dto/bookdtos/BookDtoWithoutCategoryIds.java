@@ -10,4 +10,5 @@ public record BookDtoWithoutCategoryIds(
         String isbn,
         String description,
         String coverImage
-) {}
+) {
+}
