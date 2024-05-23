@@ -1,9 +1,9 @@
 package com.samoilenko.onlinebookstore.service;
 
-import com.samoilenko.onlinebookstore.dto.ShoppingCartResponseDto;
-import com.samoilenko.onlinebookstore.dto.cartitemdtos.CartItemRequestDto;
-import com.samoilenko.onlinebookstore.dto.cartitemdtos.CartItemResponseDto;
-import com.samoilenko.onlinebookstore.dto.cartitemdtos.UpdateRequestDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.ShoppingCartResponseDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.CartItemRequestDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.CartItemResponseDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.UpdateRequestDto;
 import com.samoilenko.onlinebookstore.model.User;
 
 public interface ShoppingCartService {

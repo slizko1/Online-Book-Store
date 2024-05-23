@@ -1,9 +1,9 @@
 package com.samoilenko.onlinebookstore.controller;
 
-import com.samoilenko.onlinebookstore.dto.ShoppingCartResponseDto;
-import com.samoilenko.onlinebookstore.dto.cartitemdtos.CartItemRequestDto;
-import com.samoilenko.onlinebookstore.dto.cartitemdtos.CartItemResponseDto;
-import com.samoilenko.onlinebookstore.dto.cartitemdtos.UpdateRequestDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.ShoppingCartResponseDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.CartItemRequestDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.CartItemResponseDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.UpdateRequestDto;
 import com.samoilenko.onlinebookstore.model.User;
 import com.samoilenko.onlinebookstore.service.impl.ShoppingCartServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;

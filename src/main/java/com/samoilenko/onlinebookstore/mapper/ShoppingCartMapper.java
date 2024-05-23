@@ -1,7 +1,7 @@
 package com.samoilenko.onlinebookstore.mapper;
 
 import com.samoilenko.onlinebookstore.config.MapperConfig;
-import com.samoilenko.onlinebookstore.dto.ShoppingCartResponseDto;
+import com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos.ShoppingCartResponseDto;
 import com.samoilenko.onlinebookstore.model.ShoppingCart;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

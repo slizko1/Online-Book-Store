@@ -1,4 +1,4 @@
-package com.samoilenko.onlinebookstore.dto.cartitemdtos;
+package com.samoilenko.onlinebookstore.dto.shoppingcart.and.cartitemdtos;
 
 public record CartItemResponseDto(
         Long id,
