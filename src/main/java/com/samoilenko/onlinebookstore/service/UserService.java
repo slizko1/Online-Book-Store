@@ -7,6 +7,4 @@ import com.samoilenko.onlinebookstore.model.User;
 
 public interface UserService {
     UserResponseDto register(UserRegistrationRequestDto requestDto) throws RegistrationException;
-
-    User getCurrentUser();
 }

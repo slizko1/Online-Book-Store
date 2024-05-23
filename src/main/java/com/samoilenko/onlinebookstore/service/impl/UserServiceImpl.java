@@ -41,18 +41,4 @@ public class UserServiceImpl implements UserService {
         shoppingCartService.createCartForUser(savedUser);
         return userMapper.toResponseDto(savedUser);
     }
-
-    @Override
-    public User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-            if (principal instanceof UserDetails) {
-                String email = ((UserDetails) principal).getUsername();
-                return userRepository.findByEmail(email)
-                        .orElseThrow(() -> new UserNotFoundException("User not found"));
-            }
-        }
-        throw new RuntimeException("No authenticated user found");
-    }
 }

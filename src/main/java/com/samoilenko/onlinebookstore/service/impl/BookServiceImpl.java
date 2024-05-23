@@ -48,6 +48,7 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 
+    @Override
     public BookDto update(Long id, BookRequestDto bookRequestDto) {
         validateId(id);
         validateCategories(bookRequestDto.getCategoryIds());
