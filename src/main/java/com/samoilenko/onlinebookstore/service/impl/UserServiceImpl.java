@@ -3,7 +3,6 @@ package com.samoilenko.onlinebookstore.service.impl;
 import com.samoilenko.onlinebookstore.dto.userdtos.UserRegistrationRequestDto;
 import com.samoilenko.onlinebookstore.dto.userdtos.UserResponseDto;
 import com.samoilenko.onlinebookstore.exception.RegistrationException;
-import com.samoilenko.onlinebookstore.exception.UserNotFoundException;
 import com.samoilenko.onlinebookstore.mapper.UserMapper;
 import com.samoilenko.onlinebookstore.model.Role;
 import com.samoilenko.onlinebookstore.model.User;
@@ -13,9 +12,6 @@ import com.samoilenko.onlinebookstore.service.UserService;
 import jakarta.transaction.Transactional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
