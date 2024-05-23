@@ -6,10 +6,8 @@ import com.samoilenko.onlinebookstore.exception.RegistrationException;
 import com.samoilenko.onlinebookstore.exception.UserNotFoundException;
 import com.samoilenko.onlinebookstore.mapper.UserMapper;
 import com.samoilenko.onlinebookstore.model.Role;
-import com.samoilenko.onlinebookstore.model.ShoppingCart;
 import com.samoilenko.onlinebookstore.model.User;
 import com.samoilenko.onlinebookstore.repository.RoleRepository;
-import com.samoilenko.onlinebookstore.repository.ShoppingCartRepository;
 import com.samoilenko.onlinebookstore.repository.UserRepository;
 import com.samoilenko.onlinebookstore.service.UserService;
 import jakarta.transaction.Transactional;
@@ -43,8 +41,6 @@ public class UserServiceImpl implements UserService {
         shoppingCartService.createCartForUser(savedUser);
         return userMapper.toResponseDto(savedUser);
     }
-
-
 
     @Override
     public User getCurrentUser() {

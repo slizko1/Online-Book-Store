@@ -7,6 +7,7 @@ import com.samoilenko.onlinebookstore.model.Category;
 import com.samoilenko.onlinebookstore.repository.CategoryRepository;
 import com.samoilenko.onlinebookstore.service.CategoryService;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getById(Long id) {
         return categoryMapper.toDto(categoryRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException("Cant get cateory by id = " + id)
+                new EntityNotFoundException("Cant get category by id = " + id)
         ));
     }
 
@@ -49,6 +50,11 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteById(Long id) {
         validateId(id);
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Category> findAllByIds(Set<Long> categoryIds) {
+        return categoryRepository.findAllById(categoryIds);
     }
 
     private void validateId(Long id) {

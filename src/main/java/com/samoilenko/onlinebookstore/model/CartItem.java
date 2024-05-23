@@ -20,7 +20,7 @@ import lombok.ToString;
 @EqualsAndHashCode(exclude = {"shoppingCart", "book"})
 @ToString(exclude = {"shoppingCart", "book"})
 @Table(name = "cart_items")
-public class CartItem { //todo add validation
+public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

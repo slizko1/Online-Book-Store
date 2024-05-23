@@ -1,6 +1,5 @@
 package com.samoilenko.onlinebookstore.exception;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -58,15 +57,6 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     ) {
         String responseMessage = "Can't register user: " + ex.getMessage();
         log.error("Can't register user", ex);
-        return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
-    }
-
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    protected ResponseEntity<Object> handleSqlIntegrityConstraintViolationException(
-            SQLIntegrityConstraintViolationException ex, WebRequest request
-    ) {
-        String responseMessage = "Duplicated data: " + ex.getMessage();
-        log.error("Duplicated data", ex);
         return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
     }
 
