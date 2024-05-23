@@ -30,11 +30,11 @@ import org.hibernate.annotations.SQLRestriction;
 @Table(name = "shopping_carts")
 public class ShoppingCart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @MapsId
+    @OneToOne(optional = false)
+    @JoinColumn(name = "id")
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shoppingCart")

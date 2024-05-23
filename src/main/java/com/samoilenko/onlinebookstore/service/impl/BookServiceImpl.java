@@ -61,6 +61,7 @@ public class BookServiceImpl implements BookService {
                 .toList();
     }
 
+
     private void validateId(Long id) {
         if (!bookRepository.existsById(id)) {
             throw new EntityNotFoundException("Book with id " + id + " not found");

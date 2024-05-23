@@ -12,6 +12,7 @@ import com.samoilenko.onlinebookstore.repository.RoleRepository;
 import com.samoilenko.onlinebookstore.repository.ShoppingCartRepository;
 import com.samoilenko.onlinebookstore.repository.UserRepository;
 import com.samoilenko.onlinebookstore.service.UserService;
+import jakarta.transaction.Transactional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -27,8 +28,9 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
-    private final ShoppingCartRepository shoppingCartRepository;
+    private final ShoppingCartServiceImpl shoppingCartService;
 
+    @Transactional
     public UserResponseDto register(UserRegistrationRequestDto requestDto)
             throws RegistrationException {
         if (userRepository.existsByEmail(requestDto.getEmail())) {
@@ -38,11 +40,11 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         newUser.setRoles(Set.of(roleRepository.findByName(Role.RoleName.USER)));
         User savedUser = userRepository.save(newUser);
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setUser(savedUser);
-        shoppingCartRepository.save(shoppingCart); //TODO add to shoping cart service
+        shoppingCartService.createCartForUser(savedUser);
         return userMapper.toResponseDto(savedUser);
     }
+
+
 
     @Override
     public User getCurrentUser() {
