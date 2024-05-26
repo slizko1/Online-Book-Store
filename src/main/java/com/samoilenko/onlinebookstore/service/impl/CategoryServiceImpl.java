@@ -1,6 +1,7 @@
 package com.samoilenko.onlinebookstore.service.impl;
 
 import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryRequestDto;
 import com.samoilenko.onlinebookstore.exception.EntityNotFoundException;
 import com.samoilenko.onlinebookstore.mapper.CategoryMapper;
 import com.samoilenko.onlinebookstore.model.Category;
@@ -33,15 +34,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
-        Category savedCategory = categoryMapper.toEntity(categoryDto);
+    public CategoryDto save(CategoryRequestDto requestDto) {
+        Category savedCategory = categoryMapper.toEntity(requestDto);
         return categoryMapper.toDto(categoryRepository.save(savedCategory));
     }
 
     @Override
-    public CategoryDto update(Long id, CategoryDto categoryDto) {
+    public CategoryDto update(Long id, CategoryRequestDto requestDto) {
         validateId(id);
-        Category updatedCategory = categoryMapper.toEntity(categoryDto);
+        Category updatedCategory = categoryMapper.toEntity(requestDto);
         updatedCategory.setId(id);
         return categoryMapper.toDto(categoryRepository.save(updatedCategory));
     }

@@ -26,6 +26,7 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_books_book_for_cart_item
                     references: books(id)
+                    unique: true
               - column:
                   name: quantity
                   type: int

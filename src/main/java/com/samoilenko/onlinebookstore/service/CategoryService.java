@@ -1,6 +1,7 @@
 package com.samoilenko.onlinebookstore.service;
 
 import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryRequestDto;
 import com.samoilenko.onlinebookstore.model.Category;
 import java.util.List;
 import java.util.Set;
@@ -11,9 +12,9 @@ public interface CategoryService {
 
     CategoryDto getById(Long id);
 
-    CategoryDto save(CategoryDto categoryDto);
+    CategoryDto save(CategoryRequestDto requestDto);
 
-    CategoryDto update(Long id, CategoryDto categoryDto);
+    CategoryDto update(Long id, CategoryRequestDto requestDto);
 
     void deleteById(Long id);
 

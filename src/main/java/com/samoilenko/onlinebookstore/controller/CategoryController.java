@@ -2,6 +2,7 @@ package com.samoilenko.onlinebookstore.controller;
 
 import com.samoilenko.onlinebookstore.dto.bookdtos.BookDtoWithoutCategoryIds;
 import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryRequestDto;
 import com.samoilenko.onlinebookstore.service.BookService;
 import com.samoilenko.onlinebookstore.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,8 +37,8 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public CategoryDto createCategory(@RequestBody @Valid CategoryDto categoryDto) {
-        return categoryService.save(categoryDto);
+    public CategoryDto createCategory(@RequestBody @Valid CategoryRequestDto requestDto) {
+        return categoryService.save(requestDto);
     }
 
     @Operation(
@@ -61,8 +62,8 @@ public class CategoryController {
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public CategoryDto updateCategory(@PathVariable Long id,
-                                      @RequestBody @Valid CategoryDto categoryDto) {
-        return categoryService.update(id, categoryDto);
+                                      @RequestBody @Valid CategoryRequestDto requestDto) {
+        return categoryService.update(id, requestDto);
     }
 
     @Operation(summary = "Delete category", description = "Mark specific category deleted")

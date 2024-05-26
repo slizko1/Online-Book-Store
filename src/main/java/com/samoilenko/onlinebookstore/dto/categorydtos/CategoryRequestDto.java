@@ -1,8 +1,9 @@
 package com.samoilenko.onlinebookstore.dto.categorydtos;
 
-public record CategoryDto(
-        Long id,
+import jakarta.validation.constraints.NotNull;
+
+public record CategoryRequestDto(
+        @NotNull
         String name,
         String description
-) {
-}
+) {}
