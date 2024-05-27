@@ -1,7 +1,8 @@
 package com.samoilenko.onlinebookstore.mapper;
 
 import com.samoilenko.onlinebookstore.config.MapperConfig;
-import com.samoilenko.onlinebookstore.dto.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryDto;
+import com.samoilenko.onlinebookstore.dto.categorydtos.CategoryRequestDto;
 import com.samoilenko.onlinebookstore.model.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,5 +14,5 @@ public interface CategoryMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "deleted", ignore = true)
-    Category toEntity(CategoryDto categoryDto);
+    Category toEntity(CategoryRequestDto categoryDto);
 }

@@ -9,6 +9,7 @@ import com.samoilenko.onlinebookstore.model.User;
 import com.samoilenko.onlinebookstore.repository.RoleRepository;
 import com.samoilenko.onlinebookstore.repository.UserRepository;
 import com.samoilenko.onlinebookstore.service.UserService;
+import jakarta.transaction.Transactional;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,15 +22,19 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final ShoppingCartServiceImpl shoppingCartService;
 
+    @Transactional
     public UserResponseDto register(UserRegistrationRequestDto requestDto)
             throws RegistrationException {
         if (userRepository.existsByEmail(requestDto.getEmail())) {
             throw new RegistrationException("User with this email already exist");
         }
-        User savedUser = userMapper.toModel(requestDto);
-        savedUser.setPassword(passwordEncoder.encode(requestDto.getPassword()));
-        savedUser.setRoles(Set.of(roleRepository.findByName(Role.RoleName.USER)));
-        return userMapper.toResponseDto(userRepository.save(savedUser));
+        User newUser = userMapper.toModel(requestDto);
+        newUser.setPassword(passwordEncoder.encode(requestDto.getPassword()));
+        newUser.setRoles(Set.of(roleRepository.findByName(Role.RoleName.USER)));
+        User savedUser = userRepository.save(newUser);
+        shoppingCartService.createCartForUser(savedUser);
+        return userMapper.toResponseDto(savedUser);
     }
 }

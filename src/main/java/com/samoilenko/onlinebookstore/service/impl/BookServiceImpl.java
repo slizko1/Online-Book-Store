@@ -8,8 +8,8 @@ import com.samoilenko.onlinebookstore.mapper.BookMapper;
 import com.samoilenko.onlinebookstore.model.Book;
 import com.samoilenko.onlinebookstore.repository.BookRepository;
 import com.samoilenko.onlinebookstore.service.BookService;
-import jakarta.persistence.EntityManager;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,10 +19,11 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    private final EntityManager entityManager;
+    private final CategoryServiceImpl categoryService;
 
     @Override
     public BookDto createBook(BookRequestDto requestDto) {
+        validateCategories(requestDto.getCategoryIds());
         Book savedBook = bookMapper.toEntity(requestDto);
         return bookMapper.toDto(bookRepository.save(savedBook));
     }
@@ -47,8 +48,10 @@ public class BookServiceImpl implements BookService {
         bookRepository.deleteById(id);
     }
 
+    @Override
     public BookDto update(Long id, BookRequestDto bookRequestDto) {
         validateId(id);
+        validateCategories(bookRequestDto.getCategoryIds());
         Book updatedBook = bookMapper.toEntity(bookRequestDto);
         updatedBook.setId(id);
         return bookMapper.toDto(bookRepository.save(updatedBook));
@@ -56,6 +59,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDtoWithoutCategoryIds> findBooksByCategoryId(Pageable pageable, Long id) {
+        categoryService.getById(id);
         return bookRepository.findAllByCategoryId(pageable, id).stream()
                 .map(bookMapper::toDtoWithoutCategories)
                 .toList();
@@ -67,4 +71,10 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    private void validateCategories(Set<Long> categoryIds) {
+        var existingCategories = categoryService.findAllByIds(categoryIds);
+        if (existingCategories.size() < categoryIds.size()) {
+            throw new EntityNotFoundException("Some categories not found");
+        }
+    }
 }

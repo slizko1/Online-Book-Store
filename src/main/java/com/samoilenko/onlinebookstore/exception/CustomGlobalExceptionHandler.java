@@ -1,6 +1,5 @@
 package com.samoilenko.onlinebookstore.exception;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -52,21 +52,21 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return getResponseEntity(HttpStatus.NOT_FOUND, bodyOfResponse);
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    protected ResponseEntity<Object> handleUserNotFoundException(
+            AccessDeniedException ex, WebRequest request
+    ) {
+        String bodyOfResponse = "Access denied: " + ex.getMessage();
+        log.error("Access denied:", ex);
+        return getResponseEntity(HttpStatus.FORBIDDEN, bodyOfResponse);
+    }
+
     @ExceptionHandler(RegistrationException.class)
     protected ResponseEntity<Object> handleRegistrationException(
             RegistrationException ex, WebRequest request
     ) {
         String responseMessage = "Can't register user: " + ex.getMessage();
         log.error("Can't register user", ex);
-        return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
-    }
-
-    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-    protected ResponseEntity<Object> handleSqlIntegrityConstraintViolationException(
-            SQLIntegrityConstraintViolationException ex, WebRequest request
-    ) {
-        String responseMessage = "Duplicated data: " + ex.getMessage();
-        log.error("Duplicated data", ex);
         return getResponseEntity(HttpStatus.BAD_REQUEST, responseMessage);
     }
 
