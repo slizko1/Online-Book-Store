@@ -52,9 +52,10 @@ public class OrderServiceImpl implements OrderService {
         }
         newOrder.setTotal(total);
         newOrder.setShippingAddress(requestDto.shippingAddress());
+        Order savedOrder = orderRepository.save(newOrder);
         usersShoppingCart.getCartItems().clear();
         cartItemRepository.deleteAllByShoppingCartId(usersShoppingCart.getId());
-        return orderMapper.toDto(orderRepository.save(newOrder));
+        return orderMapper.toDto(savedOrder);
     }
 
     @Override

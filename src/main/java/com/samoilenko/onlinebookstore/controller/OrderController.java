@@ -40,8 +40,7 @@ public class OrderController {
     @PostMapping
     public OrderDto placeOrder(
             @AuthenticationPrincipal User user,
-            @RequestBody @Valid PlaceOrderRequestDto requestDto
-    ) {
+            @RequestBody @Valid PlaceOrderRequestDto requestDto) {
         return orderService.placeOrder(user.getId(), requestDto);
     }
 
@@ -64,8 +63,7 @@ public class OrderController {
     public OrderDto updateOrderStatus(
             @AuthenticationPrincipal User user,
             @PathVariable Long orderId,
-            @RequestBody @Valid StatusRequestDto requestDto
-    ) {
+            @RequestBody @Valid StatusRequestDto requestDto) {
         return orderService.updateOrderStatus(user.getId(), orderId, requestDto);
     }
 
@@ -77,8 +75,7 @@ public class OrderController {
     @GetMapping("/{orderId}/items")
     public List<OrderItemDto> getOrderItems(
             @AuthenticationPrincipal User user,
-            @PathVariable Long orderId
-    ) {
+            @PathVariable Long orderId) {
         return orderService.getOrderItemsByOrderId(user.getId(), orderId);
     }
 
@@ -91,8 +88,7 @@ public class OrderController {
     public OrderItemDto getSpecificOrderItem(
             @AuthenticationPrincipal User user,
             @PathVariable Long orderId,
-            @PathVariable Long itemId
-    ) {
+            @PathVariable Long itemId) {
         return orderService.getOrderItem(user.getId(), orderId, itemId);
     }
 }
