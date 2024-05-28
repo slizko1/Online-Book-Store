@@ -1,9 +1,12 @@
 package com.samoilenko.onlinebookstore.dto.categorydtos;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
 
 public record CategoryRequestDto(
-        @NotNull
+        @NotBlank
+        @Length(min = 3)
         String name,
         String description
-) {}
+) {
+}
